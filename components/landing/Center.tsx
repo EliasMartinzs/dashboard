@@ -36,7 +36,6 @@ export function Center() {
           <Image
             src="/dashboard-image-mobile.png"
             alt="main image"
-            layout="responsive"
             width={0}
             height={0}
             priority

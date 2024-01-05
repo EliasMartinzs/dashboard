@@ -29,15 +29,15 @@ export function Header() {
               rounded="full"
               className="font-semibold"
             >
-              Login
+              <Link href="/auth/login">Login</Link>
             </Button>
             <Button
-              variant="outline"
+              variant="none"
               size="full"
               rounded="full"
               className="font-semibold"
             >
-              Criar uma conta
+              <Link href="/auth/register"> Criar uma conta</Link>
             </Button>
           </div>
           <Separator />
@@ -75,7 +75,7 @@ export function Header() {
           ))}
         </ul>
         <Button variant="outline" size="lg" rounded="full">
-          Login
+          <Link href="/auth/login">Login</Link>
         </Button>
       </div>
     </header>

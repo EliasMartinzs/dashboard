@@ -43,8 +43,9 @@ module.exports = {
           layout: {},
           colors: {
             background: "#ffffff",
-            foreground: "#222222",
+            foreground: "#121212",
             borderColor: "rgba(69,69,69,0.3)",
+            cardColor: "#f1f1f1",
             primary: {
               100: "#dadada",
               200: "#b5b5b5",
@@ -61,9 +62,10 @@ module.exports = {
         dark: {
           layout: {},
           colors: {
-            background: "#222222",
-            foreground: "#ffffff",
+            background: "#121212",
+            foreground: "#d1d1d1",
             borderColor: "rgba(143,254,255,0.15)",
+            cardColor: "#222222",
             primary: {
               100: "#e3ffff",
               200: "#c7ffff",
