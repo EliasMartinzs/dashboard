@@ -18,3 +18,9 @@ export const RegisterSchema = z.object({
     message: "Senha deve conter no minimo 6 caracteres",
   }),
 });
+
+export const AddAmountSchema = z.object({
+  amount: z.string().refine((val) => val !== "", {
+    message: "O campo não pode estar vazio",
+  }),
+});

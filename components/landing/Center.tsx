@@ -36,10 +36,10 @@ export function Center() {
           <Image
             src="/dashboard-image-mobile.png"
             alt="main image"
-            width={0}
-            height={0}
+            width={500}
+            height={500}
             priority
-            className="object-cover w-full h-full rounded-lg shadow-lg px-5 lg:hidden"
+            className="object-cover drop-shadow-xl rounded-lg px-5 lg:hidden"
           />
         </div>
       </div>

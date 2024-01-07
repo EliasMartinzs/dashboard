@@ -23,22 +23,18 @@ export function Header() {
           side="right"
         >
           <div className="w-full flex-center gap-x-5 mt-10">
-            <Button
-              variant="default"
-              size="full"
-              rounded="full"
-              className="font-semibold"
+            <Link
+              className="bg-[#121212] text-white p-2 rounded-full hover:shadow-2xl"
+              href="/auth/login"
             >
-              <Link href="/auth/login">Login</Link>
-            </Button>
-            <Button
-              variant="none"
-              size="full"
-              rounded="full"
-              className="font-semibold"
+              Login
+            </Link>
+            <Link
+              className="border rounded-full p-2 hover:bg-slate-100 transition-colors"
+              href="/auth/register"
             >
-              <Link href="/auth/register"> Criar uma conta</Link>
-            </Button>
+              Criar uma conta
+            </Link>
           </div>
           <Separator />
           <div className="space-y-6">

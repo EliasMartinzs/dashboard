@@ -14,6 +14,7 @@ interface DraweerProps {
   children: React.ReactNode;
   title?: string;
   description?: string;
+  styles?: string;
 }
 
 export function Draweer({
@@ -21,11 +22,12 @@ export function Draweer({
   description,
   iconOpen,
   title,
+  styles,
 }: DraweerProps) {
   return (
     <Drawer>
       <DrawerTrigger>{iconOpen}</DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className={styles}>
         <DrawerHeader>
           <DrawerTitle>{title}</DrawerTitle>
           <DrawerDescription>{description}</DrawerDescription>

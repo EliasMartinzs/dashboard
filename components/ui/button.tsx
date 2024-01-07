@@ -38,7 +38,7 @@ const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "none",
       size: "default",
       rounded: "default",
     },

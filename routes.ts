@@ -4,7 +4,7 @@
  * @type {string[]}
  */
 
-export const publicRoutes: string[] = ["/", "/dashboard"];
+export const publicRoutes: string[] = ["/"];
 
 /**
  * An array of routes that are used for authentication
