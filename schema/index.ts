@@ -24,3 +24,9 @@ export const AddAmountSchema = z.object({
     message: "O campo não pode estar vazio",
   }),
 });
+
+export const categorySchema = z.object({
+  category: z.string().min(1, {
+    message: "Categoria invalida",
+  }),
+});

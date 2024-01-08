@@ -8,5 +8,6 @@ export async function useUserData(email: string) {
     email: userData?.email,
     image: userData?.image,
     balance: userData?.balance,
+    category: userData?.categories,
   };
 }

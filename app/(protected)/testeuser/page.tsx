@@ -1,12 +1,12 @@
 import { auth } from "@/auth";
-import { getUserByEmail } from "@/data/user";
+import { getUserCategories } from "@/data/user";
+import { useUserData } from "@/hooks/useUserData";
 import React from "react";
 
 export default async function page() {
-  const user = await auth();
-  const userDb = await getUserByEmail(user?.user?.email ?? "");
-
-  console.log(user);
+  const userAuth = await auth();
+  const { category } = await useUserData(userAuth?.user?.email ?? "");
+  console.log(category);
 
   return <div>page</div>;
 }

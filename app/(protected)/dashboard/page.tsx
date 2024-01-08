@@ -1,12 +1,17 @@
 import { auth } from "@/auth";
 import { CardBalance } from "@/components/dashboard/CardBalance";
+import ExpenseForm from "@/components/dashboard/ExpenseForm";
+import { Sheeet } from "@/components/reusable/Sheeet";
 import { UserButton } from "@/components/reusable/UserButton";
 import { ToggleTheme } from "@/components/settings/ToggleTheme";
+import { useUserData } from "@/hooks/useUserData";
 import { Settings } from "lucide-react";
-import Image from "next/image";
+import { IoCreateOutline } from "react-icons/io5";
 
 export default async function page() {
   const user = await auth();
+  const { category } = await useUserData(user?.user?.email ?? "");
+
   return (
     <div className="flex flex-col lg:flex-row h-screen gap-x-5 lg:p-5">
       <div className="bg-[#121212] dark:bg-cardColor text-white dark:text-foreground w-full lg:w-32 p-4 rounded-xl max-lg:hidden">
@@ -33,7 +38,20 @@ export default async function page() {
             <CardBalance />
           </div>
           <div className="lg:flex-1 bg-cardColor shadow-lg ring-1 ring-black/5 p-4 rounded-lg">
-            Card 2
+            <div className="space-x-5 flex items-center">
+              <h2 className="font-semibold">Despesas</h2>
+              <Sheeet
+                iconOpen={
+                  <IoCreateOutline className="text-xl cursor-pointer" />
+                }
+                side="bottom"
+              >
+                <div className="w-full flex-center flex-col gap-y-5">
+                  <h2 className="text-lg font-semibold">Minhas despesas</h2>
+                  <ExpenseForm category={category} />
+                </div>
+              </Sheeet>
+            </div>
           </div>
         </div>
 

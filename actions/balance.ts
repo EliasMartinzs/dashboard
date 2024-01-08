@@ -15,8 +15,6 @@ export const addMoney = async (
 
   const { amount } = validatedField.data;
 
-  console.log(amount);
-
   try {
     const parsedAmount = parseFloat(amount.replace(",", ""));
 
