@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import { CardBalance } from "@/components/dashboard/CardBalance";
 import ExpenseForm from "@/components/dashboard/ExpenseForm";
+import { ShowExpenses } from "@/components/dashboard/ShowExpenses";
 import { Sheeet } from "@/components/reusable/Sheeet";
 import { UserButton } from "@/components/reusable/UserButton";
 import { ToggleTheme } from "@/components/settings/ToggleTheme";
@@ -52,6 +53,7 @@ export default async function page() {
                 </div>
               </Sheeet>
             </div>
+            <ShowExpenses category={category} />
           </div>
         </div>
 

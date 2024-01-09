@@ -1,29 +1,17 @@
 "use client";
 
-import React, {
-  ChangeEvent,
-  FormEvent,
-  useEffect,
-  useState,
-  useTransition,
-} from "react";
+import React, { ChangeEvent, FormEvent, useState, useTransition } from "react";
 
-import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { CategoryProps } from "@/types";
+import { CategoryProps, StatusProps } from "@/types";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { createCategory } from "@/actions/expenses";
+import { createExpenses, seedsCategories } from "@/actions/expenses";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
-import { useUserData } from "@/hooks/useUserData";
 import { Spinner } from "../reusable/Spinner";
+import { FormState } from "../auth/FormState";
+import { RiErrorWarningFill } from "react-icons/ri";
+import { NewCategory } from "./NewCategory";
 
 interface ExpensesState {
   [key: string]: string;
@@ -32,19 +20,31 @@ interface ExpensesState {
 const ExpenseForm = ({ category }: CategoryProps) => {
   const [isPending, startTransition] = useTransition();
   const [expenses, setExpenses] = useState<ExpensesState>({});
-  const [loading, setLoading] = useState(false);
+  const [loadingCategory, setLoadingCategory] = useState(false);
+  const [loadingExpense, setLoadingExpense] = useState(false);
+  const [error, setError] = useState<string | undefined>("");
+  const [selectedStatus, setSelectedStatus] = useState<StatusProps | null>(
+    null
+  );
   const user = useCurrentUser();
 
-  const createNewCategory = async () => {
-    setLoading(true);
+  const createNewExpense = async () => {
+    setLoadingExpense(true);
     try {
-      await createCategory({
-        email: user?.email ?? "",
-        name: expenses.category,
+      if (selectedStatus?.value.length === 0) {
+        setError("Por favor selecione uma categoria!");
+      }
+
+      const categoryId = selectedStatus?.id || 0;
+
+      await createExpenses({
+        amount: expenses.amount,
+        categoryId,
+        description: expenses.description,
       });
     } catch (error) {
     } finally {
-      setLoading(false);
+      setLoadingExpense(false);
     }
   };
 
@@ -63,35 +63,10 @@ const ExpenseForm = ({ category }: CategoryProps) => {
 
   return (
     <form onSubmit={onSubmit} className="grid grid-cols-2 w-96 gap-4">
-      <Input
-        placeholder="Categoria"
-        className="form-outline"
-        name="category"
-        onChange={handleChange}
+      <NewCategory
+        selectedStatus={selectedStatus}
+        setSelectedStatus={setSelectedStatus}
       />
-      <Button
-        className="bg-primary-500 text-white dark:text-black font-medium"
-        rounded="full"
-        onClick={createNewCategory}
-        disabled={isPending}
-        size="lg"
-      >
-        {loading ? <Spinner /> : "Nova categoria"}
-      </Button>
-
-      <Select>
-        <SelectTrigger className="form-outline">
-          <SelectValue placeholder="Selecione a categoria" />
-        </SelectTrigger>
-        <SelectContent>
-          {category?.map((cat) => (
-            <SelectItem key={cat.id} value={cat.id.toString()}>
-              {cat.nome}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-
       <Input
         placeholder="Descrição"
         className="form-outline"
@@ -110,12 +85,19 @@ const ExpenseForm = ({ category }: CategoryProps) => {
       <Button
         className="bg-primary-500 text-white dark:text-black font-medium"
         rounded="full"
-        type="submit"
         size="lg"
         disabled={isPending}
+        onClick={createNewExpense}
       >
-        Salvar
+        {loadingExpense ? <Spinner /> : "Nova despesa"}
       </Button>
+      {error && (
+        <FormState
+          style="bg-red-500 text-[10px]"
+          message={error}
+          icon={<RiErrorWarningFill className="w-7 h-7" />}
+        />
+      )}
     </form>
   );
 };

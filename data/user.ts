@@ -7,11 +7,12 @@ export const getUserByEmail = async (email: string | undefined) => {
       include: {
         creditCard: true,
         transactions: true,
+        accounts: true,
         categories: true,
       },
     });
 
-    return user;
+    return JSON.parse(JSON.stringify(user));
   } catch (error: any) {
     return null;
   }
@@ -25,33 +26,12 @@ export const getUserById = async (id: string) => {
         creditCard: true,
         transactions: true,
         categories: true,
+        accounts: true,
       },
     });
 
     return user;
   } catch (error: any) {
     return null;
-  }
-};
-
-export const getUserCategories = async (email: string) => {
-  try {
-    const user = await db.user.findUnique({
-      where: {
-        email: email,
-      },
-      include: {
-        categories: true,
-      },
-    });
-
-    if (!user) {
-      throw new Error("Usuário não encontrado");
-    }
-
-    return user.categories;
-  } catch (error) {
-    console.error("Erro ao buscar categorias do usuário:", error);
-    throw new Error("Erro ao buscar categorias do usuário");
   }
 };
